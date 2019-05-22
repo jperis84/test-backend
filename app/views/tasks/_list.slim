@@ -1,0 +1,17 @@
+br
+h3 = title
+table width='70%'
+  tr
+    th = 'Título'
+    th = 'Email'
+    th = 'Inicio'
+    th = 'Fin'
+    th colspan='2' = 'Acciones'
+  - tasks.each do |task|
+    tr
+      td = task.title
+      td = task.email || '-'
+      td = task.begin_at.strftime('%d/%m/%Y a las %H:%Mh')
+      td = task.end_at.strftime('%d/%m/%Y a las %H:%Mh')
+      td = link_to 'Editar', edit_task_path(task)
+      td = link_to 'Eliminar', task_path(task), method: :delete, data: { confirm: '¿Estas seguro?' }

@@ -1,0 +1,12 @@
+h2 Tarea
+
+= simple_form_for task do |f|
+  = f.input :title, label: 'Título'
+  br
+  = f.input :email, as: :email
+  br
+  = f.input :begin_at, as: :datetime, label: 'Inicio'
+  br
+  = f.input :end_at, as: :datetime, label: 'Fin'
+  br
+  = f.button :submit

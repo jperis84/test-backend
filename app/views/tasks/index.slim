@@ -1,0 +1,12 @@
+h2 Lista de tareas
+
+p = link_to 'Nueva tarea', new_task_path
+
+- if @past_tasks.exists?
+  = render 'tasks/list', tasks: @past_tasks, title: 'Tareas pasadas'
+
+- if @actual_tasks.exists?
+  = render 'tasks/list', tasks: @actual_tasks, title: 'Tareas actuales'
+
+- if @future_tasks.exists?
+  = render 'tasks/list', tasks: @future_tasks, title: 'Tareas futuras'
