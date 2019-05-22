@@ -34,5 +34,5 @@ La prueba consistirá en añadir a esta aplicación la funcionalidad de `Lista d
 ## Aspectos a valorar
 * Comentarios en el código que clarifiquen cualquier aspecto que se considere relevante
 * Limpieza en el código y respeto a convenios en cuanto a estilo (https://github.com/rubocop-hq/ruby-style-guide)
-* El tiempo de entrega y finalización de la de la prueba
-* Se pide una eficiencia máxima en el esquema de base de datos creados y en todas las consultas realizadas
+* El tiempo de entrega y finalización de la prueba
+* Se pide una eficiencia máxima en el esquema de base de datos creado y en todas las consultas realizadas
