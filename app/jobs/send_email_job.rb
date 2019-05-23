@@ -6,7 +6,7 @@ class SendEmailJob < ApplicationJob
 
     return unless task.present?
     return unless task.email.present?
-    return if task.updated_at.to_json != task_updated_at
+    return if task.updated_at.to_s != task_updated_at
 
     TaskMailer.send_notification_mail(
       task.email,

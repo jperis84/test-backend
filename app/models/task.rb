@@ -1,10 +1,11 @@
 class Task < ApplicationRecord
   validates :title, :begin_at, :end_at, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_nil: true, allow_blank: true
+  validates :email,
+            format: { with: URI::MailTo::EMAIL_REGEXP },
+            allow_nil: true,
+            allow_blank: true
 
-  validates :begin_at, :end_at, uniqueness: true
-
-  validate :uniqueness_range_of_time, on: :create
+  validate :no_overlaps, on: :create
   validate :end_at_after_start_at?
 
   scope :overlaps, ->(begin_at, end_at) {
@@ -19,19 +20,22 @@ class Task < ApplicationRecord
 
   def schedule_job_to_send_email
     return unless email.present?
+    return if begin_at < Time.now
 
-    SendEmailJob.set(wait_until: begin_at.to_json).perform_later(id, updated_at.to_json)
+    SendEmailJob.set(wait_until: begin_at).perform_later(id, updated_at.to_s)
   end
 
   private
 
-  def uniqueness_range_of_time
+  def no_overlaps
+    return unless begin_at.present? && end_at.present?
     return if self.class.overlaps(begin_at, end_at).empty?
 
     errors.add(:end_at, 'Solape de fechas')
   end
 
   def end_at_after_start_at?
+    return unless begin_at.present? && end_at.present?
     return if end_at > begin_at
 
     errors.add(:end_at, 'Fecha de fin debe ser posterior a fecha de inicio')
